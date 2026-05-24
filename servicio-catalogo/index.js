@@ -15,6 +15,10 @@ const libros = [
   { id: 5, titulo: 'Matar a un ruiseñor', autor: 'Harper Lee', precio: 14.50, stock: 7 }
 ];
 
+app.get('/api/libros', (req, res) => {
+  res.status(200).json(libros);
+});
+
 app.get('/api/libros/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
   const libro = libros.find(l => l.id === id);

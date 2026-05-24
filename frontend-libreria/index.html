@@ -7,45 +7,100 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div id="toast-container"></div>
+  <canvas id="confetti-canvas"></canvas>
+
   <div class="container">
     <header class="header">
-      <h1>Portal de Ventas - Microservicios</h1>
-      <p>Catálogo & Órdenes</p>
+      <div class="header-left">
+        <h1>Portal de Ventas</h1>
+        <p>Catálogo &amp; Órdenes</p>
+      </div>
+      <div class="header-right">
+        <span class="order-badge" id="orderBadge">0 órdenes</span>
+        <button id="darkToggle" class="icon-btn" title="Cambiar tema">🌙</button>
+      </div>
     </header>
 
     <main class="dashboard">
+      <section class="card catalog-card">
+        <div class="card-header">
+          <h2>Catálogo de Libros</h2>
+          <span class="card-badge" id="stockCount"></span>
+        </div>
+        <div class="card-body" id="catalogGrid">
+          <div class="loader"></div>
+        </div>
+      </section>
+
       <section class="card form-card">
         <div class="card-header">
           <h2>Formulario de Compra</h2>
         </div>
-        <form id="ordenForm" class="form">
-          <div class="form-group">
-            <label for="libroId">ID del Libro</label>
-            <input type="number" id="libroId" name="libroId" min="1" placeholder="Ej: 1" required>
-          </div>
+        <div class="card-body">
+          <form id="ordenForm" class="form">
+            <div class="form-group">
+              <label for="libroSelect">Libro</label>
+              <select id="libroSelect" required>
+                <option value="">— Seleccionar libro —</option>
+              </select>
+            </div>
 
-          <div class="form-group">
-            <label for="cantidad">Cantidad</label>
-            <input type="number" id="cantidad" name="cantidad" min="1" placeholder="Ej: 2" required>
-          </div>
+            <div id="bookPreview" class="book-preview hidden">
+              <div class="preview-row"><span>Autor:</span> <span id="previewAutor">—</span></div>
+              <div class="preview-row"><span>Precio:</span> <span id="previewPrecio">—</span></div>
+              <div class="preview-row"><span>Stock:</span> <span id="previewStock">—</span></div>
+            </div>
 
-          <div class="form-group">
-            <label for="cliente">Nombre del Cliente</label>
-            <input type="text" id="cliente" name="cliente" placeholder="Ej: Carlos Pérez" required>
-          </div>
+            <div class="form-group">
+              <label for="cantidad">Cantidad</label>
+              <input type="number" id="cantidad" name="cantidad" min="1" placeholder="Ej: 2" required>
+              <small class="field-error" id="cantidadError"></small>
+            </div>
 
-          <button type="submit" id="btnProcesar">
-            Procesar Orden
-          </button>
-        </form>
+            <div class="form-group">
+              <label for="cliente">Nombre del Cliente</label>
+              <input type="text" id="cliente" name="cliente" placeholder="Ej: Carlos Pérez" list="clientesList" required>
+              <datalist id="clientesList"></datalist>
+              <small class="field-error" id="clienteError"></small>
+            </div>
+
+            <div class="total-preview" id="totalPreview">Total estimado: <strong>$0.00</strong></div>
+
+            <button type="submit" id="btnProcesar">
+              <span class="btn-text">Procesar Orden</span>
+              <span class="btn-loader hidden"></span>
+            </button>
+          </form>
+        </div>
       </section>
 
       <section class="card result-card">
         <div class="card-header">
-          <h2>Consola de Resultados</h2>
+          <h2>Historial de Órdenes</h2>
+          <div class="header-actions">
+            <button id="exportCSV" class="icon-btn small" title="Exportar CSV">⬇</button>
+            <button id="clearHistory" class="icon-btn small" title="Limpiar historial">🗑</button>
+          </div>
         </div>
-        <div id="resultado">
-          <div class="placeholder">
+        <div class="card-body">
+          <div id="ultimaOrden" class="last-order"></div>
+          <div class="table-wrap">
+            <table id="ordenesTable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Cliente</th>
+                  <th>Libro</th>
+                  <th>Cant.</th>
+                  <th>Total</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody id="ordenesBody"></tbody>
+            </table>
+          </div>
+          <div class="placeholder" id="historyPlaceholder">
             <p>Completa el formulario y presiona "Procesar Orden"</p>
           </div>
         </div>
