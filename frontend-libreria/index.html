@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Ventas - Microservicios</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Portal de Ventas - Microservicios</h1>
+      <p>Catálogo & Órdenes</p>
+    </header>
+
+    <main class="dashboard">
+      <section class="card form-card">
+        <div class="card-header">
+          <h2>Formulario de Compra</h2>
+        </div>
+        <form id="ordenForm" class="form">
+          <div class="form-group">
+            <label for="libroId">ID del Libro</label>
+            <input type="number" id="libroId" name="libroId" min="1" placeholder="Ej: 1" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cantidad">Cantidad</label>
+            <input type="number" id="cantidad" name="cantidad" min="1" placeholder="Ej: 2" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cliente">Nombre del Cliente</label>
+            <input type="text" id="cliente" name="cliente" placeholder="Ej: Carlos Pérez" required>
+          </div>
+
+          <button type="submit" id="btnProcesar">
+            Procesar Orden
+          </button>
+        </form>
+      </section>
+
+      <section class="card result-card">
+        <div class="card-header">
+          <h2>Consola de Resultados</h2>
+        </div>
+        <div id="resultado">
+          <div class="placeholder">
+            <p>Completa el formulario y presiona "Procesar Orden"</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
