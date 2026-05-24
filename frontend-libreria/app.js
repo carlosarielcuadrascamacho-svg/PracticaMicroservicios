@@ -26,11 +26,14 @@ document.getElementById('ordenForm').addEventListener('submit', async (e) => {
           <h4>Resumen de compra</h4>
           <pre>${JSON.stringify(data, null, 2)}</pre>
         </div>`;
-    } else if (response.status === 400 || response.status === 404) {
+    } else {
+      const badge = response.status === 400 || response.status === 404 ? 'Error' : 'Error del servidor';
+      const badgeClass = response.status === 400 || response.status === 404 ? 'badge-error' : 'badge-error';
+      const mensaje = data.error || 'Ocurrió un error inesperado';
       resultado.innerHTML = `
         <div class="result-entry error">
-          <div class="badge badge-error">Error</div>
-          <h4>${data.error}</h4>
+          <div class="badge ${badgeClass}">${badge} (${response.status})</div>
+          <h4>${mensaje}</h4>
           <pre>${JSON.stringify(data, null, 2)}</pre>
         </div>`;
     }

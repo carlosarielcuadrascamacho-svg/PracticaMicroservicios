@@ -23,7 +23,7 @@ app.post('/api/ordenes', async (req, res) => {
       return res.status(400).json({ error: 'Stock insuficiente' });
     }
 
-    const totalAPagar = (libro.precio * cantidad).toFixed(2);
+    const totalAPagar = Number((libro.precio * cantidad).toFixed(2));
     const orden = {
       id: ordenes.length + 1,
       libroId,
