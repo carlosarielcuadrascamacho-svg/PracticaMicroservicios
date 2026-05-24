@@ -35,43 +35,98 @@
 
       <section class="card form-card">
         <div class="card-header">
-          <h2>Formulario de Compra</h2>
+          <div class="tab-bar">
+            <button class="tab-btn active" data-tab="compra">🧾 Compra</button>
+            <button class="tab-btn" data-tab="prueba">🧪 Prueba</button>
+          </div>
         </div>
         <div class="card-body">
-          <form id="ordenForm" class="form">
-            <div class="form-group">
-              <label for="libroSelect">Libro</label>
-              <select id="libroSelect" required>
-                <option value="">— Seleccionar libro —</option>
-              </select>
+          <div class="tab-content active" id="tab-compra">
+            <form id="ordenForm" class="form">
+              <div class="form-group">
+                <label for="libroSelect">Libro</label>
+                <select id="libroSelect" required>
+                  <option value="">— Seleccionar libro —</option>
+                </select>
+              </div>
+
+              <div id="bookPreview" class="book-preview hidden">
+                <div class="preview-row"><span>Autor:</span> <span id="previewAutor">—</span></div>
+                <div class="preview-row"><span>Precio:</span> <span id="previewPrecio">—</span></div>
+                <div class="preview-row"><span>Stock:</span> <span id="previewStock">—</span></div>
+              </div>
+
+              <div class="form-group">
+                <label for="cantidad">Cantidad</label>
+                <input type="number" id="cantidad" name="cantidad" min="1" placeholder="Ej: 2" required>
+                <small class="field-error" id="cantidadError"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="cliente">Nombre del Cliente</label>
+                <input type="text" id="cliente" name="cliente" placeholder="Ej: Carlos Pérez" list="clientesList" required>
+                <datalist id="clientesList"></datalist>
+                <small class="field-error" id="clienteError"></small>
+              </div>
+
+              <div class="total-preview" id="totalPreview">Total estimado: <strong>$0.00</strong></div>
+
+              <button type="submit" id="btnProcesar">
+                <span class="btn-text">Procesar Orden</span>
+                <span class="btn-loader hidden"></span>
+              </button>
+            </form>
+          </div>
+
+          <div class="tab-content" id="tab-prueba">
+            <div class="test-mode">
+              <div class="form-row">
+                <div class="form-group method-group">
+                  <label>Método</label>
+                  <select id="testMethod">
+                    <option value="GET">GET</option>
+                    <option value="POST" selected>POST</option>
+                  </select>
+                </div>
+                <div class="form-group url-group">
+                  <label>URL</label>
+                  <input type="text" id="testUrl" value="https://servicio-ordenes.onrender.com/api/ordenes" placeholder="https://...">
+                </div>
+              </div>
+
+              <div class="quick-buttons">
+                <span class="quick-label">Acceso rápido:</span>
+                <button class="quick-btn" data-url="https://servicio-catalogo.onrender.com/api/libros" data-method="GET">GET catálogo</button>
+                <button class="quick-btn" data-url="https://servicio-catalogo.onrender.com/api/libros/1" data-method="GET">GET libro/1</button>
+                <button class="quick-btn" data-url="https://servicio-ordenes.onrender.com/api/ordenes" data-method="POST">POST orden</button>
+              </div>
+
+              <div class="form-group" id="testBodyGroup">
+                <label>Body (JSON)</label>
+                <textarea id="testBody" rows="5" spellcheck="false">{"libroId":1,"cantidad":1,"cliente":"test"}</textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Headers</label>
+                <div class="headers-display">
+                  <code>Content-Type: application/json</code>
+                </div>
+              </div>
+
+              <button id="btnTestSend" class="btn-send">
+                <span class="btn-send-text">▶ Enviar</span>
+                <span class="btn-loader hidden"></span>
+              </button>
+
+              <div id="testResponse" class="test-response hidden">
+                <div class="response-bar">
+                  <span class="response-status" id="respStatus">—</span>
+                  <span class="response-time" id="respTime">—</span>
+                </div>
+                <pre id="respBody" class="response-body"></pre>
+              </div>
             </div>
-
-            <div id="bookPreview" class="book-preview hidden">
-              <div class="preview-row"><span>Autor:</span> <span id="previewAutor">—</span></div>
-              <div class="preview-row"><span>Precio:</span> <span id="previewPrecio">—</span></div>
-              <div class="preview-row"><span>Stock:</span> <span id="previewStock">—</span></div>
-            </div>
-
-            <div class="form-group">
-              <label for="cantidad">Cantidad</label>
-              <input type="number" id="cantidad" name="cantidad" min="1" placeholder="Ej: 2" required>
-              <small class="field-error" id="cantidadError"></small>
-            </div>
-
-            <div class="form-group">
-              <label for="cliente">Nombre del Cliente</label>
-              <input type="text" id="cliente" name="cliente" placeholder="Ej: Carlos Pérez" list="clientesList" required>
-              <datalist id="clientesList"></datalist>
-              <small class="field-error" id="clienteError"></small>
-            </div>
-
-            <div class="total-preview" id="totalPreview">Total estimado: <strong>$0.00</strong></div>
-
-            <button type="submit" id="btnProcesar">
-              <span class="btn-text">Procesar Orden</span>
-              <span class="btn-loader hidden"></span>
-            </button>
-          </form>
+          </div>
         </div>
       </section>
 

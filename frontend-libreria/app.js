@@ -32,6 +32,98 @@ const darkToggle = $('darkToggle');
 const exportBtn = $('exportCSV');
 const clearBtn = $('clearHistory');
 
+/* ── TABS ── */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    $(`tab-${btn.dataset.tab}`).classList.add('active');
+  });
+});
+
+/* ── TEST MODE ── */
+const testMethod = $('testMethod');
+const testUrl = $('testUrl');
+const testBody = $('testBody');
+const testBodyGroup = $('testBodyGroup');
+const btnTestSend = $('btnTestSend');
+const btnTestSendText = btnTestSend.querySelector('.btn-send-text');
+const btnTestSendLoader = btnTestSend.querySelector('.btn-loader');
+const testResponse = $('testResponse');
+const respStatus = $('respStatus');
+const respTime = $('respTime');
+const respBody = $('respBody');
+
+testMethod.addEventListener('change', () => {
+  testBodyGroup.style.display = testMethod.value === 'GET' ? 'none' : 'block';
+});
+
+document.querySelectorAll('.quick-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    testUrl.value = btn.dataset.url;
+    testMethod.value = btn.dataset.method;
+    testMethod.dispatchEvent(new Event('change'));
+    if (btn.dataset.method === 'GET') {
+      testBody.value = '';
+    } else {
+      testBody.value = '{"libroId":1,"cantidad":1,"cliente":"test"}';
+    }
+  });
+});
+
+btnTestSend.addEventListener('click', async () => {
+  const method = testMethod.value;
+  const url = testUrl.value.trim();
+  if (!url) { toast('Ingresa una URL', 'warning'); return; }
+
+  btnTestSend.disabled = true;
+  btnTestSendText.textContent = 'Enviando...';
+  btnTestSendLoader.classList.remove('hidden');
+  testResponse.classList.add('hidden');
+
+  const start = performance.now();
+
+  try {
+    const opts = { method, headers: { 'Content-Type': 'application/json' } };
+    if (method === 'POST') {
+      try {
+        opts.body = JSON.stringify(JSON.parse(testBody.value));
+      } catch {
+        toast('JSON inválido en el body', 'error');
+        btnTestSend.disabled = false;
+        btnTestSendText.textContent = '▶ Enviar';
+        btnTestSendLoader.classList.add('hidden');
+        return;
+      }
+    }
+
+    const res = await fetch(url, opts);
+    const elapsed = Math.round(performance.now() - start);
+    const data = await res.json();
+
+    testResponse.classList.remove('hidden');
+
+    const statusClass = res.status < 300 ? 'status-2xx' : res.status < 500 ? 'status-4xx' : 'status-5xx';
+    respStatus.className = `response-status ${statusClass}`;
+    respStatus.textContent = `${res.status} ${res.statusText}`;
+    respTime.textContent = `${elapsed}ms`;
+    respBody.textContent = JSON.stringify(data, null, 2);
+
+  } catch (err) {
+    const elapsed = Math.round(performance.now() - start);
+    testResponse.classList.remove('hidden');
+    respStatus.className = 'response-status status-0';
+    respStatus.textContent = 'Error de conexión';
+    respTime.textContent = `${elapsed}ms`;
+    respBody.textContent = err.message;
+  } finally {
+    btnTestSend.disabled = false;
+    btnTestSendText.textContent = '▶ Enviar';
+    btnTestSendLoader.classList.add('hidden');
+  }
+});
+
 /* ── DARK MODE ── */
 const isDark = localStorage.getItem('dark') === 'true';
 if (isDark) { document.body.classList.add('dark'); darkToggle.textContent = '☀️'; }
@@ -376,5 +468,6 @@ document.addEventListener('keydown', (e) => {
 });
 
 /* ── INIT ── */
+testMethod.dispatchEvent(new Event('change'));
 renderHistorial();
 fetchCatalog();
