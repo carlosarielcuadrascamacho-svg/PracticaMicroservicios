@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 3002;
-const CATALOGO_URL = process.env.CATALOGO_URL || 'http://localhost:3001';
+const CATALOGO_URL = (process.env.CATALOGO_URL || 'http://localhost:3001').replace(/\/+$/, '');
 
 let ordenes = [];
 
