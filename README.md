@@ -14,7 +14,9 @@
 
 ### 🖥 Vista General del Proyecto
 
-<img src="Imagenes/ImagenPantallaCompleta.png" alt="Vista general del proyecto" width="800"/>
+<kbd>
+  <img src="Imagenes/ImagenPantallaCompleta.png" alt="Vista general del proyecto" width="600"/>
+</kbd>
 
 ---
 
@@ -358,7 +360,11 @@ Procesa la compra de un libro. Este endpoint internamente consulta al **Servicio
 
 La interfaz gráfica permite visualizar el catálogo, llenar el formulario y ver los resultados todo en una misma pantalla:
 
-<img src="Imagenes/ImagenPantallaCompleta.png" alt="Vista completa del panel administrativo" width="800"/>
+<p align="center">
+  <kbd>
+    <img src="Imagenes/ImagenPantallaCompleta.png" alt="Vista completa del panel administrativo" width="550"/>
+  </kbd>
+</p>
 
 ---
 
@@ -374,7 +380,11 @@ Seleccionamos un libro, indicamos cantidad y cliente, y presionamos **Procesar O
 
 **Resultado:** La orden se procesa correctamente y se muestra el resumen con el total a pagar.
 
-<img src="Imagenes/PantallaCompletaOrdenEjecutada.png" alt="Orden ejecutada exitosamente" width="800"/>
+<p align="center">
+  <kbd>
+    <img src="Imagenes/PantallaCompletaOrdenEjecutada.png" alt="Orden ejecutada exitosamente" width="550"/>
+  </kbd>
+</p>
 
 **Respuesta del backend (201 Created):**
 ```json
@@ -410,7 +420,11 @@ Intentamos comprar un libro con un ID que no existe en el catálogo para verific
 
 **Resultado:** El servicio rechaza la compra y muestra el error **"Libro no encontrado"**.
 
-<img src="Imagenes/LibroNoEncontrado404.png" alt="Error 404 - Libro no encontrado" width="800"/>
+<p align="center">
+  <kbd>
+    <img src="Imagenes/LibroNoEncontrado404.png" alt="Error 404 - Libro no encontrado" width="550"/>
+  </kbd>
+</p>
 
 **Respuesta del backend (404 Not Found):**
 ```json
@@ -437,7 +451,11 @@ Intentamos comprar más unidades de las que hay disponibles para verificar que l
 
 **Resultado:** El servicio rechaza la compra por **"Stock insuficiente"**.
 
-<img src="Imagenes/StockInsuficiente400.png" alt="Error 400 - Stock insuficiente" width="800"/>
+<p align="center">
+  <kbd>
+    <img src="Imagenes/StockInsuficiente400.png" alt="Error 400 - Stock insuficiente" width="550"/>
+  </kbd>
+</p>
 
 **Respuesta del backend (400 Bad Request):**
 ```json
@@ -452,7 +470,11 @@ curl -X POST https://servicio-ordenes.onrender.com/api/ordenes \
 
 ### 📸 Captura directa del resultado exitoso
 
-<img src="Imagenes/CompraExitosa201.png" alt="Compra exitosa - Vista del resultado" width="600"/>
+<p align="center">
+  <kbd>
+    <img src="Imagenes/CompraExitosa201.png" alt="Compra exitosa - Vista del resultado" width="450"/>
+  </kbd>
+</p>
 
 ---
 
