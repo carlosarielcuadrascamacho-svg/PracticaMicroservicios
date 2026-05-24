@@ -369,8 +369,8 @@ Seleccionamos un libro, indicamos cantidad y cliente, y presionamos **Procesar O
 | Campo | Valor |
 |-------|-------|
 | Libro | Cien años de soledad (ID: 1) |
-| Cantidad | 2 |
-| Cliente | Carlos |
+| Cantidad | 1 |
+| Cliente | Carlos Ariel |
 
 **Resultado:** La orden se procesa correctamente y se muestra el resumen con el total a pagar.
 
@@ -382,10 +382,10 @@ Seleccionamos un libro, indicamos cantidad y cliente, y presionamos **Procesar O
   "id": 1,
   "libroId": 1,
   "titulo": "Cien años de soledad",
-  "cantidad": 2,
-  "totalAPagar": 39.98,
-  "cliente": "Carlos",
-  "fecha": "2026-05-24T22:30:59.757Z"
+  "cantidad": 1,
+  "totalAPagar": 19.99,
+  "cliente": "Carlos Ariel",
+  "fecha": "2026-05-24T22:43:29.108Z"
 }
 ```
 
@@ -393,7 +393,7 @@ A nivel de código, esto equivale a la siguiente petición curl:
 ```bash
 curl -X POST https://servicio-ordenes.onrender.com/api/ordenes \
   -H "Content-Type: application/json" \
-  -d '{"libroId":1,"cantidad":2,"cliente":"Carlos"}'
+  -d '{"libroId":1,"cantidad":1,"cliente":"Carlos Ariel"}'
 ```
 
 ---
@@ -404,9 +404,9 @@ Intentamos comprar un libro con un ID que no existe en el catálogo para verific
 
 | Campo | Valor |
 |-------|-------|
-| Libro | ID: 99 (no existe) |
+| Libro | ID: 6 (no existe) |
 | Cantidad | 1 |
-| Cliente | Carlos |
+| Cliente | test |
 
 **Resultado:** El servicio rechaza la compra y muestra el error **"Libro no encontrado"**.
 
@@ -420,7 +420,7 @@ Intentamos comprar un libro con un ID que no existe en el catálogo para verific
 ```bash
 curl -X POST https://servicio-ordenes.onrender.com/api/ordenes \
   -H "Content-Type: application/json" \
-  -d '{"libroId":99,"cantidad":1,"cliente":"Carlos"}'
+  -d '{"libroId":6,"cantidad":1,"cliente":"test"}'
 ```
 
 ---
@@ -431,9 +431,9 @@ Intentamos comprar más unidades de las que hay disponibles para verificar que l
 
 | Campo | Valor |
 |-------|-------|
-| Libro | Orgullo y prejuicio (Stock: 3) |
-| Cantidad | 99 |
-| Cliente | Carlos |
+| Libro | 1 |
+| Cantidad | 22 |
+| Cliente | test |
 
 **Resultado:** El servicio rechaza la compra por **"Stock insuficiente"**.
 
@@ -447,7 +447,7 @@ Intentamos comprar más unidades de las que hay disponibles para verificar que l
 ```bash
 curl -X POST https://servicio-ordenes.onrender.com/api/ordenes \
   -H "Content-Type: application/json" \
-  -d '{"libroId":4,"cantidad":99,"cliente":"Carlos"}'
+  -d '{"libroId":1,"cantidad":22,"cliente":"test"}'
 ```
 
 ### 📸 Captura directa del resultado exitoso
