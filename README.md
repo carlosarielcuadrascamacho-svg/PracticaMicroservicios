@@ -422,7 +422,7 @@ Intentamos comprar un libro con un ID que no existe en el catálogo para verific
 
 <p align="center">
   <kbd>
-    <img src="Imagenes/LibroNoEncontrado404.png" alt="Error 404 - Libro no encontrado" width="550"/>
+    <img src="Imagenes/LibroNoEncontrado404.png" alt="Error 404 - Libro no encontrado" width="350"/>
   </kbd>
 </p>
 
@@ -453,7 +453,7 @@ Intentamos comprar más unidades de las que hay disponibles para verificar que l
 
 <p align="center">
   <kbd>
-    <img src="Imagenes/StockInsuficiente400.png" alt="Error 400 - Stock insuficiente" width="550"/>
+    <img src="Imagenes/StockInsuficiente400.png" alt="Error 400 - Stock insuficiente" width="350"/>
   </kbd>
 </p>
 
@@ -472,7 +472,7 @@ curl -X POST https://servicio-ordenes.onrender.com/api/ordenes \
 
 <p align="center">
   <kbd>
-    <img src="Imagenes/CompraExitosa201.png" alt="Compra exitosa - Vista del resultado" width="450"/>
+    <img src="Imagenes/CompraExitosa201.png" alt="Compra exitosa - Vista del resultado" width="280"/>
   </kbd>
 </p>
 
